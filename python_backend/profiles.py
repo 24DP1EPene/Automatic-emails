@@ -2,7 +2,7 @@ import json
 import uuid
 
 
-def create_profile(sender_emails: list[str], receiver_emails: list[str], password: str, topic: str, email_content: str, condition: int) -> dict[str, dict[str: list[str] | str | int]]:
+def create_profile(sender_email: str, receiver_emails: list[str], password: str, topic: str, email_content: str, condition: int) -> dict[str, dict[str: list[str] | str | int]]:
     """
     Funkcija <create_profile>
     pieņem <list[str], list[str], str, str, str, int>
@@ -12,7 +12,7 @@ def create_profile(sender_emails: list[str], receiver_emails: list[str], passwor
     """ 
     new_profile = {
         str(uuid.uuid1()): {
-            "sender_emails": sender_emails,
+            "sender_email": sender_email,
             "receiver_emails": receiver_emails,
             "password": password,
             "topic": topic,
