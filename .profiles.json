@@ -1,14 +1,50 @@
 {
-  "270e520c-2e5a-11f1-851d-0e853a3f8a32": {
-    "sender_emails": [
-      "mezjanisrenars@gmail.com"
-    ],
-    "receiver_emails": [
-      "mezjanisrenars@gmail.com"
-    ],
-    "password": "Beris2012",
-    "topic": "Gay",
-    "email_content": "Im gay",
-    "condition": 0
-  }
+    "19dbbf9c-2e69-11f1-827c-0e853a3f8a32": {
+        "sender_email": "m",
+        "name": "k",
+        "receiver_emails": [
+            "a"
+        ],
+        "description": "l",
+        "password": "gg",
+        "topic": "hh",
+        "email_content": "rr",
+        "condition": 0
+    },
+    "19ddf1c2-2e69-11f1-a243-0e853a3f8a32": {
+        "sender_email": "m",
+        "name": "k",
+        "receiver_emails": [
+            "a"
+        ],
+        "description": "l",
+        "password": "gg",
+        "topic": "hh",
+        "email_content": "rr",
+        "condition": 0
+    },
+    "b30c115c-2e69-11f1-bc7f-0e853a3f8a32": {
+        "sender_email": "j",
+        "name": "uj",
+        "receiver_emails": [
+            "jy"
+        ],
+        "description": "y",
+        "password": "j",
+        "topic": "y",
+        "email_content": "uy\ny",
+        "condition": 0
+    },
+    "b30c656e-2e69-11f1-b992-0e853a3f8a32": {
+        "sender_email": "j",
+        "name": "uj",
+        "receiver_emails": [
+            "jy"
+        ],
+        "description": "y",
+        "password": "j",
+        "topic": "y",
+        "email_content": "uy\ny",
+        "condition": 0
+    }
 }

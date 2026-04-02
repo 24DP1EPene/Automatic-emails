@@ -54,6 +54,7 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
         match request['message']:
             case 'add profile':
                 create_profile(*request['data'])
+                print('created', request)
             case 'delete profile':
                 delete_profile(*request['data'])
             case 'edit profile':
