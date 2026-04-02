@@ -49,3 +49,5 @@ def send_email_until(send_date: str, send_time: str) -> bool:
         return True
     else:
         return False
+    
+conditions = (send_email_on, send_email_until)
