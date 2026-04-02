@@ -1,0 +1,2 @@
+# No external dependencies required for basic TUI
+# Uses Python standard library only (json, os, sys, pathlib, enum, typing)
