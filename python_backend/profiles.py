@@ -34,8 +34,8 @@ def create_profile(sender_email: str, name: str, receiver_emails: list[str], des
 def edit_profile(name: str, description: str, updates: dict):
     """
     Funkcija <edit_profile>
-    pieņem <str, str, dict[str, dict[str: list[str] | str | int]]> tipa vērtību <>
-    un atgriež <> tipa vērtību <>
+    pieņem <str, str, dict[str, dict[str: list[str] | str | int]]> tipa vērtību <name, description, updates>
+    un atgriež <dict[str, dict[str: list[str] | str | int]]> tipa vērtību <profile_data>
     """
     try:
         with open(".profiles.json", "r") as f:
@@ -54,6 +54,11 @@ def edit_profile(name: str, description: str, updates: dict):
             return {profile_id: profile_data}
 
 def delete_profile(name: str, description: str):
+    """
+    Funkcija <delete_profile>
+    pieņem <str, str> tipa vērtību <name, description>
+    un atgriež <Null> tipa vērtību <Null>
+    """
     try:
         with open(".profiles.json", "r") as f:
             profiles = json.load(f)
