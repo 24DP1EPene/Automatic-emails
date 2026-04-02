@@ -45,7 +45,12 @@ class EmailAutomationTUI:
         }
         
     def load_profiles(self) -> Dict[str, Dict[str, Any]]:
-        """Load profiles from .profiles.json"""
+        """
+        funkcija <load_profiles>
+        pieņem nevienu parametru
+        un atgriež <Dict[str, Dict[str, Any]]>
+        tipa vērtību <profiles>
+        """
         if self.profiles_file.exists():
             try:
                 with open(self.profiles_file, 'r') as f:
@@ -55,16 +60,31 @@ class EmailAutomationTUI:
         return {}
     
     def save_profiles(self) -> None:
-        """Save profiles to .profiles.json"""
+        """
+        funkcija <save_profiles>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         with open(self.profiles_file, 'w') as f:
             json.dump(self.profiles, f, indent=2)
     
     def print_header(self) -> None:
-        """Print TUI header/title"""
+        """
+        funkcija <print_header>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         print("\nEmail Automation > ", end="", flush=True)
     
     def show_help(self) -> None:
-        """Show all available commands"""
+        """
+        funkcija <show_help>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         print("\nAvailable Commands:")
         print("-" * 50)
         for cmd, desc in self.commands.items():
@@ -72,7 +92,13 @@ class EmailAutomationTUI:
         print("-" * 50)
     
     def get_multiline_input(self, prompt: str) -> str:
-        """Get multiline input (Enter twice to finish)"""
+        """
+        funkcija <get_multiline_input>
+        pieņem <str>
+        tipa vērtību <prompt>
+        un atgriež <str>
+        tipa vērtību <teksts>
+        """
         print(f"{prompt} (Enter twice to finish):")
         lines = []
         empty_count = 0
@@ -91,7 +117,12 @@ class EmailAutomationTUI:
         return "\n".join(lines)
     
     def get_email_list(self) -> List[str]:
-        """Get a list of emails from user (comma or line separated)"""
+        """
+        funkcija <get_email_list>
+        pieņem nevienu parametru
+        un atgriež <List[str]>
+        tipa vērtību <epasti>
+        """
         response = input("Emails (comma or newline separated): ").strip()
         emails = []
         if "," in response:
@@ -101,18 +132,33 @@ class EmailAutomationTUI:
         return [e for e in emails if e]
     
     def display_profile(self, profile_id: str, profile: Dict[str, Any]) -> None:
-        """Display a single profile"""
+        """
+        funkcija <display_profile>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un <Dict[str, Any]>
+        tipa vērtību <profile>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         status = "ACTIVE" if self.active_profiles.get(profile_id) else "INACTIVE"
         print(f"\nProfile ID: {profile_id}")
-        print(f"  Status:     [{status}]")
-        print(f"  Senders:    {', '.join(profile.get('sender_emails', []))}")
-        print(f"  Recipients: {', '.join(profile.get('receiver_emails', []))}")
-        print(f"  Subject:    {profile.get('topic', 'N/A')}")
-        print(f"  Content:    {profile.get('email_content', 'N/A')[:60]}...")
-        print(f"  Condition:  {profile.get('condition', 0)}")
+        print(f"  Status:      [{status}]")
+        print(f"  Name:        {profile.get('name', 'N/A')}")
+        print(f"  Description: {profile.get('description', 'N/A')}")
+        print(f"  Sender:      {profile.get('sender_email', 'N/A')}")
+        print(f"  Recipients:  {', '.join(profile.get('receiver_emails', []))}")
+        print(f"  Subject:     {profile.get('topic', 'N/A')}")
+        print(f"  Content:     {profile.get('email_content', 'N/A')[:50]}...")
+        print(f"  Condition:   {profile.get('condition', 0)}")
     
     def list_profiles(self) -> None:
-        """List all profiles with status"""
+        """
+        funkcija <list_profiles>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if not self.profiles:
             print("No profiles found. Use 'create' to add one.")
             return
@@ -126,7 +172,13 @@ class EmailAutomationTUI:
         print("-" * 60)
     
     def view_profile(self, profile_id: str) -> None:
-        """View detailed profile information"""
+        """
+        funkcija <view_profile>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -134,7 +186,12 @@ class EmailAutomationTUI:
         self.display_profile(profile_id, self.profiles[profile_id])
     
     def show_status(self) -> None:
-        """Show status of active profiles"""
+        """
+        funkcija <show_status>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         active_count = sum(1 for v in self.active_profiles.values() if v)
         print(f"\nStatus: {active_count}/{len(self.profiles)} profiles active")
         
@@ -147,15 +204,25 @@ class EmailAutomationTUI:
             print("No active profiles")
     
     def execute_create(self) -> None:
-        """Create a new profile interactively"""
+        """
+        funkcija <execute_create>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         print("\n--- Create New Profile ---")
         
-        sender_emails_str = input("Sender email(s) (comma-separated): ").strip()
-        sender_emails = [e.strip() for e in sender_emails_str.split(",") if e.strip()]
-        
-        if not sender_emails:
-            print("Error: At least one sender email required.")
+        sender_email = input("Sender email: ").strip()
+        if not sender_email:
+            print("Error: Sender email required.")
             return
+        
+        name = input("Profile name: ").strip()
+        if not name:
+            print("Error: Profile name required.")
+            return
+        
+        description = input("Profile description: ").strip()
         
         recipient_str = input("Recipient email(s) (comma-separated): ").strip()
         recipient_emails = [e.strip() for e in recipient_str.split(",") if e.strip()]
@@ -176,8 +243,10 @@ class EmailAutomationTUI:
         
         try:
             new_profile = create_profile(
-                sender_emails=sender_emails,
+                sender_email=sender_email,
+                name=name,
                 receiver_emails=recipient_emails,
+                description=description,
                 password=password,
                 topic=subject,
                 email_content=content,
@@ -195,13 +264,19 @@ class EmailAutomationTUI:
                 log_action(f"Profile created: {profile_id}")
                 self.request_queue.put({
                     'message': 'add profile',
-                    'data': (sender_emails, recipient_emails, password, subject, content, condition_int)
+                    'data': (sender_email, name, recipient_emails, description, password, subject, content, condition_int)
                 })
         except Exception as e:
             print(f"Error creating profile: {e}")
     
     def execute_edit(self, profile_id: str) -> None:
-        """Edit an existing profile"""
+        """
+        funkcija <execute_edit>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -210,9 +285,17 @@ class EmailAutomationTUI:
         print(f"\nEditing: {profile_id}")
         print("(Leave blank to keep current value)")
         
-        senders_str = input(f"Senders [{', '.join(profile['sender_emails'])}]: ").strip()
-        if senders_str:
-            profile['sender_emails'] = [e.strip() for e in senders_str.split(",")]
+        sender = input(f"Sender [{profile.get('sender_email', '')}]: ").strip()
+        if sender:
+            profile['sender_email'] = sender
+        
+        name = input(f"Name [{profile.get('name', '')}]: ").strip()
+        if name:
+            profile['name'] = name
+        
+        description = input(f"Description [{profile.get('description', '')}]: ").strip()
+        if description:
+            profile['description'] = description
         
         recipients_str = input(f"Recipients [{', '.join(profile['receiver_emails'])}]: ").strip()
         if recipients_str:
@@ -241,7 +324,12 @@ class EmailAutomationTUI:
         print("Profile updated.")
     
     def execute_delete(self, profile_id: str) -> None:
-        """Delete a profile"""
+        """
+        funkcija <execute_delete>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -262,7 +350,12 @@ class EmailAutomationTUI:
             print("Cancelled.")
     
     def execute_activate(self, profile_id: str) -> None:
-        """Activate a profile"""
+        """
+        funkcija <execute_activate>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -279,13 +372,19 @@ class EmailAutomationTUI:
             self.request_queue.put({
                 'message': 'add profile',
                 'id': profile_id,
-                'data': (profile['sender_emails'], profile['receiver_emails'], 
-                        profile['password'], profile['topic'], profile['email_content'], 
-                        profile['condition'])
+                'data': (profile['sender_email'], profile['name'], profile['receiver_emails'], 
+                        profile['description'], profile['password'], profile['topic'], 
+                        profile['email_content'], profile['condition'])
             })
     
     def execute_deactivate(self, profile_id: str) -> None:
-        """Deactivate a profile"""
+        """
+        funkcija <execute_deactivate>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -304,7 +403,13 @@ class EmailAutomationTUI:
             })
     
     def execute_duplicate(self, profile_id: str) -> None:
-        """Duplicate a profile"""
+        """
+        funkcija <execute_duplicate>
+        pieņem <str>
+        tipa vērtību <profile_id>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if profile_id not in self.profiles:
             print(f"Error: Profile '{profile_id}' not found.")
             return
@@ -318,7 +423,13 @@ class EmailAutomationTUI:
         print(f"Profile duplicated: {new_id}")
     
     def execute_export(self, filename: str) -> None:
-        """Export profiles to JSON"""
+        """
+        funkcija <execute_export>
+        pieņem <str>
+        tipa vērtību <filename>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if not filename:
             filename = "profiles_export.json"
         
@@ -330,7 +441,13 @@ class EmailAutomationTUI:
             print(f"Error exporting profiles: {e}")
     
     def execute_import(self, filename: str) -> None:
-        """Import profiles from JSON"""
+        """
+        funkcija <execute_import>
+        pieņem <str>
+        tipa vērtību <filename>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         if not filename:
             print("Error: Please provide a filename.")
             return
@@ -349,7 +466,12 @@ class EmailAutomationTUI:
             print(f"Error importing profiles: {e}")
     
     def execute_clear(self) -> None:
-        """Clear all profiles"""
+        """
+        funkcija <execute_clear>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         confirm = input("Clear ALL profiles? This cannot be undone (yes/no): ").strip().lower()
         if confirm == "yes":
             self.profiles.clear()
@@ -359,7 +481,13 @@ class EmailAutomationTUI:
             print("Cancelled.")
     
     def process_command(self, command: str) -> None:
-        """Parse and execute commands"""
+        """
+        funkcija <process_command>
+        pieņem <str>
+        tipa vērtību <command>
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         parts = command.strip().split(maxsplit=1)
         if not parts:
             return
@@ -421,7 +549,12 @@ class EmailAutomationTUI:
             print(f"Unknown command: '{cmd}'. Type 'help' for available commands.")
     
     def run(self) -> None:
-        """Main command loop - similar to Command Prompt"""
+        """
+        funkcija <run>
+        pieņem nevienu parametru
+        un atgriež <None>
+        tipa vērtību <neviena>
+        """
         print("\nEmail Automation Terminal")
         print(f"Profiles: {len(self.profiles)} loaded")
         print(f"Backend: {'Connected' if self.request_queue else 'Standalone'}")
