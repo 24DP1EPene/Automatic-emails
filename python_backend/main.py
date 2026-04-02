@@ -69,7 +69,7 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
         match request['message']:
             case 'add profile':
                 profile = create_profile(*request['data'])
-                id = profile.keys()[0]
+                id = list(profile.keys())[0]
                 quit_event = Event()
                 launch_condition(profile[id]['condition'], id, quit_event)
                 quit_events[id] = quit_event

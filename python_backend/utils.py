@@ -3,6 +3,11 @@ from typing import Optional
 from json import dump, load
 
 def merge_settings(user_settings: dict, default_settings: dict) -> dict:
+    """
+    funkcija <>
+    pieņem <> tipa vērtību <>
+    un atgriež <> tipa vērtību <>
+    """
     '''
     Merges user settings with default settings, filling in any missing values from the default settings.
     
@@ -23,6 +28,11 @@ def merge_settings(user_settings: dict, default_settings: dict) -> dict:
     return settings
 
 def read_json(file_name: str | Path, default_values: Optional[dict] = {}, indent: int = 4) -> dict:
+    """
+    funkcija <>
+    pieņem <> tipa vērtību <>
+    un atgriež <> tipa vērtību <>
+    """
     '''
     Reads a JSON file and returns the data as a dictionary. If the file does not exist, it creates it with the default values.
     
@@ -43,9 +53,19 @@ def read_json(file_name: str | Path, default_values: Optional[dict] = {}, indent
         return load(f)
 
 def read_profiles():
+    """
+    funkcija <>
+    pieņem <> tipa vērtību <>
+    un atgriež <> tipa vērtību <>
+    """
     return read_json('.profile.json')
 
 def log_action(text: str, file_name: str | Path = Path('.log.log'), end: str = '\n') -> None:
+    """
+    funkcija <>
+    pieņem <> tipa vērtību <>
+    un atgriež <> tipa vērtību <>
+    """
     '''
     Logs an action by appending the specified text to a log file.
     
