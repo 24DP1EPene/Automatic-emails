@@ -35,17 +35,17 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
         
         Thread(target=thread_function, daemon=True).start()
 
-    quit_events = []
+    quit_events = {}
     # Palaiž eksistējošos profilus
 
     for id, profile in profiles.items():
         quit_event = Event()
         launch_condition(conditions[profile['condition']], id, quit_event)
-        quit_events.append((id, quit_event))
+        quit_events[id] = quit_event
 
     # Aizsūta visus quit event id
 
-    for quit_event in quit_events:
+    for quit_event in quit_events.items():
         response_queue.put(quit_event[0])
 
 
@@ -59,5 +59,5 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
         case 'edit profile':
             edit_profile()
         case 'quit':
-            for quit_event in quit_events:
-                quit_event.set()
+            for quit_event in quit_events.items():
+                quit_event[1].set()
