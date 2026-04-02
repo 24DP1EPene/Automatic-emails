@@ -9,6 +9,11 @@ from python_backend.commands import send_email
 from python_backend.conditions import conditions
 
 def main(request_queue: Queue, response_queue: Queue) -> None:
+    """
+    funkcija <>
+    pieņem <> tipa vērtību <>
+    un atgriež <> tipa vērtību <>
+    """
 
     default_settings = read_json('default settings.json')
     settings = read_json('settings.json')
@@ -17,6 +22,11 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
 
 
     def launch_condition(function: Callable, profile_id: str, quit_event: Event):
+        """
+        funkcija <>
+        pieņem <> tipa vērtību <>
+        un atgriež <> tipa vērtību <>
+        """
         profile = profiles[profile_id]
         sender = profile['sender_email']
         receivers = profile['receiver_emails']
@@ -25,6 +35,11 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
         body = profile['content']
         
         def thread_function():
+            """
+            funkcija <>
+            pieņem <> tipa vērtību <>
+            un atgriež <> tipa vērtību <>
+            """
             while True:
                 if function():
                     for receiver in receivers:
