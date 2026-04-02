@@ -48,16 +48,18 @@ def main(request_queue: Queue, response_queue: Queue) -> None:
     for quit_event in quit_events.items():
         response_queue.put(quit_event[0])
 
+    while True:
+        request = request_queue.get()
 
-    request = request_queue.get()
-
-    match request['message']:
-        case 'add profile':
-            create_profile(*request['data'])
-        case 'delete profile':
-            delete_profile()
-        case 'edit profile':
-            edit_profile()
-        case 'quit':
-            for quit_event in quit_events.items():
-                quit_event[1].set()
+        match request['message']:
+            case 'add profile':
+                create_profile(*
+                request['data'])
+            case 'delete profile':
+                delete_profile()
+            case 'edit profile':
+                edit_profile(*request['data'])
+            case 'quit':
+                for quit_event in quit_events.items():
+                    quit_event[1].set()
+                exit()
