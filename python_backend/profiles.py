@@ -75,5 +75,3 @@ def delete_profile(name: str, description: str):
     del profiles[profile_to_delete]
     with open(".profiles.json", "w") as f:
         json.dump(profiles, f, indent=4)
-
-print(create_profile('a','a','a','a','a','a','a',1).items())
