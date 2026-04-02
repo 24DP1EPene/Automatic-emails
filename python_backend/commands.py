@@ -1,8 +1,9 @@
 from smtplib import SMTP
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from python_backend.utils import log_action
 
-def send_email(sender: str, receiver:str, password: str, subject: str, body: str) -> tuple[str, bool]:
+def send_email(sender: str, receiver:str, password: str, subject: str, body: str) -> None:
 
         # Create the email
         msg = MIMEMultipart()
@@ -18,10 +19,6 @@ def send_email(sender: str, receiver:str, password: str, subject: str, body: str
                 server.login(sender, password)
                 server.sendmail(sender, receiver, msg.as_string())
         except Exception as e:
-            message = f'Failed to send email: {e}'
-            status = False
+            log_action(f'Failed to send the email from {sender} to {receiver} | Error: {e}')
         else:
-            message = 'Successfully sent an email'
-            status = True
-
-        return (message, status)
+            log_action(f'Successfully sent the email from {sender} to {receiver}')

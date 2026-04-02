@@ -41,3 +41,21 @@ def read_json(file_name: str | Path, default_values: Optional[dict] = {}, indent
             dump(default_values, f, indent=indent)
     with open(file_name, 'r') as f:
         return load(f)
+
+def read_profiles():
+    return read_json('.profile.json')
+
+def log_action(text: str, file_name: str | Path = Path('.log.log'), end: str = '\n') -> None:
+    '''
+    Logs an action by appending the specified text to a log file.
+    
+    :param text: The text to log
+    :type text: str
+    :param file_name: The name of the log file to append to
+    :type file_name: str | Path
+    :param end: The string to append at the end of the log entry (default is a newline character)
+    :type end: str
+    '''
+
+    with open(file_name, 'a') as f:
+        f.write(f'{text}{end}')
